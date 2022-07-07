@@ -1,0 +1,187 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+  provider             = "mysql"
+  url                  = env("DATABASE_URL")
+  referentialIntegrity = "prisma"
+}
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["referentialIntegrity"]
+}
+
+model Usuario {
+  id             Int           @id @default(autoincrement())
+  email          String        @unique @db.VarChar(150)
+  senha          String?       @db.VarChar(150)
+  nome           String        @db.VarChar(200)
+  dataNascimento DateTime
+  genero         UsuarioGenero
+  bio            String?       @db.LongText
+  foto           String?       @db.VarChar(255)
+  whatsapp       String        @db.VarChar(20)
+  facebook       String?       @db.VarChar(30)
+  instagram      String?       @db.VarChar(30)
+  perfil         UsuarioPerfil
+  status         UsuarioStatus
+  criadoEm       DateTime      @default(now())
+  atualizadoEm   DateTime      @updatedAt
+
+  Anuncio Anuncio[]
+  Pagina  Pagina[]
+  @@map("usuarios")
+}
+
+enum UsuarioGenero {
+  MASCULINO
+  FEMININO
+}
+
+enum UsuarioPerfil {
+  ADMINISTRADOR
+  USUARIO
+}
+
+enum UsuarioStatus {
+  ATIVO
+  INATIVO
+  PENDENTE
+}
+
+model Departamento {
+  id           Int      @id @default(autoincrement())
+  nome         String   @db.VarChar(50)
+  abreviacao   String   @db.VarChar(50)
+  slug         String?  @unique @db.VarChar(50)
+  imagem       String   @db.VarChar(255)
+  cor          String   @db.VarChar(8)
+  criadoEm     DateTime @default(now())
+  atualizadoEm DateTime @updatedAt
+
+  Textos Texto[]
+  @@map("departamentos")
+}
+
+model Texto {
+  id            Int            @id @default(autoincrement())
+  Departamentos Departamento[]
+  Tipo          Tipo           @relation(fields: [tipoId], references: [id])
+  Evento        Evento?        @relation(fields: [eventoId], references: [id])
+  imagem        String?        @db.VarChar(255)
+  video         String?        @db.VarChar(255)
+  titulo        String?        @db.VarChar(150)
+  slug          String?        @unique @db.VarChar(150)
+  subtitulo     String?        @db.MediumText
+  conteudo      String         @db.LongText
+  acessos       Int            @default(0)
+  likes         Int            @default(0)
+  fonte         String?        @db.VarChar(255)
+  publicadoEm   DateTime?
+  status        TextoStatus
+  Tags          Tag[]
+  Comentarios   Comentario[]
+  criadoEm      DateTime       @default(now())
+  atualizadoEm  DateTime?
+
+  tipoId   Int
+  eventoId Int?
+  Anuncios Anuncio[]
+
+  @@map("textos")
+}
+
+enum TextoStatus {
+  PUBLICO
+  RASCUNHO
+}
+
+model Tipo {
+  id           Int      @id @default(autoincrement())
+  nome         String   @unique @db.VarChar(50)
+  slug         String?  @unique @db.VarChar(50)
+  criadoEm     DateTime @default(now())
+  atualizadoEm DateTime @updatedAt
+
+  Texto Texto[]
+  @@map("tipos")
+}
+
+model Evento {
+  id           Int      @id @default(autoincrement())
+  data         DateTime
+  Local        Local    @relation(fields: [localId], references: [id])
+  criadoEm     DateTime @default(now())
+  atualizadoEm DateTime @updatedAt
+
+  Texto   Texto[]
+  localId Int
+  @@map("eventos")
+}
+
+model Local {
+  id           Int      @id @default(autoincrement())
+  nome         String   @db.VarChar(50)
+  endereco     String   @db.VarChar(255)
+  latitude     String   @db.VarChar(50)
+  longitude    String   @db.VarChar(50)
+  criadoEm     DateTime @default(now())
+  atualizadoEm DateTime @updatedAt
+
+  Evento Evento[]
+  @@map("locais")
+}
+
+model Tag {
+  id           Int      @id @default(autoincrement())
+  nome         String   @unique @db.VarChar(50)
+  slug         String?  @unique @db.VarChar(50)
+  criadoEm     DateTime @default(now())
+  atualizadoEm DateTime @updatedAt
+
+  Textos Texto[]
+  @@map("tags")
+}
+
+model Comentario {
+  id           Int      @id @default(autoincrement())
+  titulo       String   @db.VarChar(150)
+  conteudo     String   @db.LongText
+  autor        String   @db.VarChar(150)
+  criadoEm     DateTime @default(now())
+  atualizadoEm DateTime @updatedAt
+
+  Texto   Texto? @relation(fields: [textoId], references: [id])
+  textoId Int?
+  @@map("comentarios")
+}
+
+model Anuncio {
+  id           Int       @id @default(autoincrement())
+  data         DateTime
+  slug         String?   @unique @db.VarChar(150)
+  slides       Texto[]
+  Usuario      Usuario   @relation(fields: [usuarioId], references: [id])
+  acessos      Int       @default(0)
+  criadoEm     DateTime  @default(now())
+  atualizadoEm DateTime?
+
+  usuarioId Int
+  @@map("anuncios")
+}
+
+model Pagina {
+  id           Int       @id @default(autoincrement())
+  titulo       String    @db.VarChar(150)
+  slug         String?   @unique @db.VarChar(150)
+  subtitulo    String?   @db.MediumText
+  conteudo     String    @db.LongText
+  acessos      Int       @default(0)
+  Usuario      Usuario   @relation(fields: [usuarioId], references: [id])
+  criadoEm     DateTime  @default(now())
+  atualizadoEm DateTime?
+
+  usuarioId Int
+  @@map("paginas")
+}
