@@ -65,7 +65,7 @@ export const retornaTema = ({
       nome = "dark";
       break;
     case "auto":
-      if (agora.getHours() > 6 || agora.getHours() < 19) {
+      if (agora.getHours() > 6 && agora.getHours() < 18) {
         cor = light;
         nome = "light";
       } else {
