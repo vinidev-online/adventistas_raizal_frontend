@@ -1,6 +1,6 @@
-import { Prisma } from '@prisma/client';
-import { NextApiRequest, NextApiResponse } from 'next';
-import { prisma } from '../../../../lib/PrismaClient';
+import { Prisma } from "@prisma/client";
+import { NextApiRequest, NextApiResponse } from "next";
+import { prisma } from "../../../../lib/PrismaClient";
 
 export default async function handler(
   req: NextApiRequest,
@@ -12,7 +12,7 @@ export default async function handler(
     query: { campos, id },
   } = req;
   switch (method) {
-    case 'GET':
+    case "GET":
       try {
         let opcoes: Prisma.TextoFindFirstArgs = {
           where: { id: Number(id) },
@@ -21,8 +21,8 @@ export default async function handler(
         if (campos) {
           campos
             .toString()
-            .split('-')
-            .map(campo => {
+            .split("-")
+            .map((campo) => {
               opcoes = {
                 ...opcoes,
                 select: { ...opcoes.select, [campo]: true },
@@ -46,7 +46,7 @@ export default async function handler(
         console.log(erro);
         return res.json({ erro });
       }
-    case 'PATCH':
+    case "PATCH":
       try {
         const {
           Departamentos,
@@ -60,6 +60,7 @@ export default async function handler(
           acessos,
           likes,
           fonte,
+          status,
           publicadoEm,
           Tags,
           Comentarios,
@@ -69,9 +70,9 @@ export default async function handler(
           const slug = titulo
             .toString()
             .toLowerCase()
-            .replace(/\s/g, '-')
-            .normalize('NFD')
-            .replace(/[\u0300-\u036f]/g, '');
+            .replace(/\s/g, "-")
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "");
 
           return res.json(
             await prisma.texto.update({
@@ -126,7 +127,7 @@ export default async function handler(
         console.log(erro);
         return res.json({ erro });
       }
-    case 'DELETE':
+    case "DELETE":
       try {
         return res.json(
           await prisma.texto.delete({ where: { id: Number(id) } })
@@ -136,6 +137,6 @@ export default async function handler(
         return res.json({ erro });
       }
     default:
-      return res.json({ erro: 'Método não permitido' });
+      return res.json({ erro: "Método não permitido" });
   }
 }
