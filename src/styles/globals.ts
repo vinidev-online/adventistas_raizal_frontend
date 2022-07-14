@@ -1,4 +1,4 @@
-import { createGlobalStyle } from "styled-components";
+import { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyle = createGlobalStyle`
 html,
@@ -22,6 +22,9 @@ a {
   letter-spacing: -0.04em;
   margin: 0;
   padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
 h1, h2, h3, h4, h5, h6{
@@ -30,7 +33,7 @@ h1, h2, h3, h4, h5, h6{
   letter-spacing: -0.04em;
 }
 
-ul li{
+ul, li{
   list-style: none;
 }
 `;

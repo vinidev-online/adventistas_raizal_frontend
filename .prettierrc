@@ -1,9 +1,9 @@
 {
   "semi": true,
   "arrowParens": "always",
-  "bracketSameLine": false,
+  "bracketSameLine": true,
   "bracketSpacing": true,
-  "singleQuote": false,
+  "singleQuote": true,
   "trailingComma": "es5",
   "tabWidth": 2,
   "endOfLine": "lf",
@@ -11,7 +11,7 @@
   "proseWrap": "never",
   "embeddedLanguageFormatting": "auto",
   "htmlWhitespaceSensitivity": "css",
-  "singleAttributePerLine": false,
+  "singleAttributePerLine": true,
   "quoteProps": "as-needed",
-  "useTabs": false
+  "useTabs": true
 }
