@@ -16,6 +16,10 @@ import {
 export const Cabecalho: FC = () => {
 	const [dados, setDados] = useState([]);
 	const transition = { duration: 0.25, type: 'spring' };
+	const entrada: Variants = {
+		inicio: { opacity: 0, y: '-12vh' },
+		final: { opacity: 1, y: 0, transition: { duration: 0.5, type: 'spring' } },
+	};
 	const link: Variants = {
 		inicio: {
 			opacity: 1,
@@ -39,8 +43,12 @@ export const Cabecalho: FC = () => {
 		buscaCabecalho();
 	}, []);
 
+	if (!dados) return <>Carregando...</>;
 	return (
-		<CabecalhoStd>
+		<CabecalhoStd
+			initial="inicio"
+			animate="final"
+			variants={entrada}>
 			<div className="linha-superior" />
 			<NavStd>
 				<button className="menu">
