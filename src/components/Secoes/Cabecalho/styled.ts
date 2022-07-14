@@ -10,8 +10,6 @@ export const CabecalhoStd = styled(motion.header)`
 	);
 	display: flex;
 	flex-direction: column;
-	height: 12vh;
-	padding: 0 ${({ theme }) => theme.espaco.xxxg};
 	position: fixed;
 	width: 100%;
 	z-index: 99;
@@ -25,10 +23,13 @@ export const CabecalhoStd = styled(motion.header)`
 		width: 100%;
 	}
 	@media screen and (max-width: 600px) {
+		padding: 0 ${({ theme }) => theme.espaco.xxg};
 	}
 	@media screen and (min-width: 601px) and (max-width: 768px) {
+		padding: 0 ${({ theme }) => theme.espaco.xxg};
 	}
 	@media screen and (min-width: 769px) {
+		padding: 0 ${({ theme }) => theme.espaco.xxxg};
 	}
 `;
 
@@ -38,7 +39,8 @@ export const NavStd = styled(motion.nav)`
 	height: 100%;
 	justify-content: space-between;
 	width: 100%;
-	.busca {
+	.busca,
+	.menu {
 		background: none;
 		border: none;
 		color: ${({ theme }) => theme.cor.texto};
@@ -57,15 +59,59 @@ export const NavStd = styled(motion.nav)`
 		}
 	}
 	@media screen and (max-width: 600px) {
+		font-size: 1.2rem;
+		height: 8vh;
+		.busca,
+		.menu {
+			svg {
+				font-size: 1.5rem;
+			}
+		}
+		.logo {
+			svg {
+				height: 6vh;
+			}
+		}
 	}
 	@media screen and (min-width: 601px) and (max-width: 768px) {
+		font-size: 0.8rem;
+		height: 10vh;
+		.busca,
+		.menu {
+			svg {
+				font-size: 1.25rem;
+			}
+		}
+		.logo {
+			svg {
+				height: 7vh;
+			}
+		}
+		.menu {
+			display: none;
+		}
 	}
 	@media screen and (min-width: 769px) {
+		font-size: 1rem;
+		height: 12vh;
+		.busca,
+		.menu {
+			svg {
+				font-size: 1rem;
+			}
+		}
+		.logo {
+			svg {
+				height: 7vh;
+			}
+		}
+		.menu {
+			display: none;
+		}
 	}
 `;
 
 export const ItensStd = styled(motion.div)`
-	display: contents;
 	.link {
 		align-items: center;
 		display: flex;
@@ -73,10 +119,13 @@ export const ItensStd = styled(motion.div)`
 		justify-content: center;
 	}
 	@media screen and (max-width: 600px) {
+		display: none;
 	}
 	@media screen and (min-width: 601px) and (max-width: 768px) {
+		display: contents;
 	}
 	@media screen and (min-width: 769px) {
+		display: contents;
 	}
 `;
 

@@ -1,6 +1,6 @@
 import { motion, Variants } from 'framer-motion';
 import Link from 'next/link';
-import { MagnifyingGlass } from 'phosphor-react';
+import { List, MagnifyingGlass } from 'phosphor-react';
 import { FC, useEffect, useState } from 'react';
 import { retornaCabecalho } from '../../../data/retornaCabecalho';
 import { Logo } from '../../Partes/Logo';
@@ -43,6 +43,9 @@ export const Cabecalho: FC = () => {
 		<CabecalhoStd>
 			<div className="linha-superior" />
 			<NavStd>
+				<button className="menu">
+					<List />
+				</button>
 				<Link href="/">
 					<a className="logo">
 						<Logo />
