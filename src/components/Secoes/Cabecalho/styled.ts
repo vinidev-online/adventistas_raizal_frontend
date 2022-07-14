@@ -102,7 +102,7 @@ export const NavStd = styled(motion.nav)`
 		}
 		.logo {
 			svg {
-				height: 7vh;
+				height: 9vh;
 			}
 		}
 		.menu {
@@ -174,11 +174,13 @@ export const SubMenuStd = styled(motion.div)`
 		position: absolute;
 		z-index: 2;
 		a {
-			padding: ${({ theme }) => theme.espaco.g};
+			padding: ${({ theme }) => theme.espaco.g}
+				${({ theme }) => theme.espaco.xg};
+			transition: all 0.25s ease-in-out;
 			&:hover {
 				background: ${({ theme }) => theme.cor.primario};
 				color: ${({ theme }) => theme.cor.fundo};
-				transition: all 0.25s ease-in-out;
+				transition: all 0.5s ease-in-out;
 			}
 		}
 	}

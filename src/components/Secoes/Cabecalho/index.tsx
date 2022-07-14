@@ -23,7 +23,7 @@ export const Cabecalho: FC = () => {
 		},
 		hover: {
 			opacity: 0.75,
-			scale: 1.1,
+			scale: 1.15,
 			transition,
 		},
 	};
