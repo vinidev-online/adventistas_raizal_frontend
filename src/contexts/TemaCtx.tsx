@@ -1,14 +1,6 @@
 import { parseCookies, setCookie } from 'nookies';
-import {
-	createContext,
-	FC,
-	ReactFragment,
-	ReactNode,
-	useEffect,
-	useState,
-} from 'react';
+import { createContext, FC, ReactFragment, ReactNode, useEffect, useState } from 'react';
 import { DefaultTheme, ThemeProvider } from 'styled-components';
-import { CarregandoPagina } from '../components/Partes/Carregando';
 import { retornaTema } from '../themes/retornaTema';
 
 type TemaCtxProps = {
@@ -63,7 +55,7 @@ export const TemaProvider: FC<TemaProviderProps> = ({ children }) => {
 		setCarregando(false);
 	};
 
-	if (carregando) return <CarregandoPagina />;
+	if (carregando) return null;
 	return (
 		<TemaCtx.Provider value={{ tema, mudaCor, mudaTema }}>
 			<ThemeProvider theme={tema}>{children}</ThemeProvider>
